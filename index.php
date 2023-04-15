@@ -24,7 +24,6 @@ if (isset($_POST['submit'])) {
 		echo "<script>alert('Woops! Email Atau Password anda Salah.')</script>";
 	}
 }
-
 ?>
 
 <!DOCTYPE html>

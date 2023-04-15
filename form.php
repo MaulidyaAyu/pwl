@@ -6,7 +6,7 @@ error_reporting(0);
 session_start();
 
 if (isset($_POST['submit'])) {
-	$username = $_POST['username'];
+	$username = $_SESSION['username'];
 	$phone_number = $_POST['phone'];
 	$date = $_POST['bdate'];
 	$people = $_POST['people'];
@@ -16,8 +16,7 @@ if (isset($_POST['submit'])) {
 			VALUES ('$username', '$phone_number', '$date', '$people', '$destination')";
 	$result = mysqli_query($conn, $sql);
 		if ($result) {
-			echo "<script>alert('Wow! User booking Completed.')</script>";
-			$busername = "";
+			echo "<script>alert('Wow! User booking Completed.'); window.location.href='isi.php';</script>";
 			$phone_number = "";
 			$date = "";
 			$people = "";
@@ -54,9 +53,6 @@ if (isset($_POST['submit'])) {
             <p class="login-text" style="font-size: 3rem; font-weight: 800;">BOOK NOW</p>
 			<p class="login-text" style="font-size: 1.2rem; font-weight: 400;">You will discover Venice through the eyes of a real Venetian!</p>
 			<div class="input-group">
-				<input type="text" placeholder="username" name="username" value="<?php echo $username; ?>" required>
-			</div>
-			<div class="input-group">
 				<input type="text" placeholder="phone number" name="phone" value="<?php echo $phone; ?>" required>
 			</div>
 			<div class="main-form">
@@ -87,5 +83,7 @@ if (isset($_POST['submit'])) {
 			</div>
 		</form>
 	</div>
+	
+	
 </body>
 </html>
