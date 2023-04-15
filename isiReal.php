@@ -61,7 +61,7 @@ if (isset($_POST['submit'])) {
         <a data-aos="zoom-in-left" data-aos-delay="1150" href="#review">review</a>
     </nav>
 
-    <a data-aos="zoom-in-left" data-aos-delay="1300" href="order.php" class="btn">HISTORY</a>
+    <a data-aos="zoom-in-left" data-aos-delay="1300" href="order.php" class="btn">ORDERS</a>
 
 </header>
 
@@ -104,47 +104,113 @@ if (isset($_POST['submit'])) {
 <!-- about section ends -->
 
 <!-- destination section starts  -->
+
 <section class="destination" id="destination">
 
     <div class="heading">
         <span>our destination</span>
         <h1>make yours destination</h1>
     </div>
+ 
 
+    <div class="box-container">
 
-<div class="box-container">
-    <?php
-    require_once "config.php";
-    $select_stmt = $database->prepare("SELECT * FROM destinasi WHERE tampil='destinasi'");
-    $select_stmt->execute();
-    while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
-        $id_destinasi = $row['id_destinasi'];
-        $gambar = $row['gambar'];
-        $judul = $row['judul'];
-        $keterangan = $row['keterangan'];
-        $alt = $row['alt'];
-        $path_detail_destinasi = $row['path_detail_destinasi'];
-    ?>
         <div class="box" data-aos="fade-up" data-aos-delay="50">
-            <div class="image">
-                <img src="<?php echo $gambar ?>" alt="<?php echo $alt ?>">
-            </div> 
+            <div class="image" id="c1">
+                <img src="images/rialto.jpg" alt="rialto">
+            </div>
             <div class="content">
-                <h3><?php echo $judul ?></h3>
-                <p><?php echo $keterangan ?></p>
-                <a href="<?php echo $path_detail_destinasi?>">read more <i class="fas fa-angle-right"></i></a>
+                <h3>Land & Water - Walking + Boat tour</h3>
+                <p>Ini adalah kombinasi sempurna untuk menikmati Venesia dari dua perspektif: darat dan air!</p>
+                <a href="#land">read more <i class="fas fa-angle-right"></i></a>
             </div>
         </div>
-    <?php
-    }
-    ?>
-</div>
-</section>
 
+        <div class="box" data-aos="fade-up" data-aos-delay="100">
+            <div class="image" id="c1">
+                <img src="images/cicchetti.jpg" alt="cicchetti">
+            </div>
+            <div class="content">
+                <h3>Grand Canal by Private Boat + Cicchetti & Wine Tour</h3>
+                <p>Grand Canal of Venice adalah "jalan raya" paling spektakuler di dunia.</p>
+                <a href="#grand">read more <i class="fas fa-angle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="box" data-aos="fade-up" data-aos-delay="150">
+            <div class="image" id="c3">
+                <img src="images/Galleria.jpg" alt="Galleria">
+            </div>
+            <div class="content">
+                <h3>Galleria dell' Accademia</h3>
+                <p>
+                    Koleksi terkenal dari museum seni ini menghadirkan garis waktu lukisan Venesia dari abad ke-13 hingga ke-19.</p>
+                <a href="#galleria">read more <i class="fas fa-angle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="box" data-aos="fade-up" data-aos-delay="200">
+            <div class="image" id="c4">
+                <img src="images/murano-burano.jpg" alt="murano-burano">
+            </div>
+            <div class="content">
+                <h3>The colorful islands: Murano & Burano</h3>
+                <p>Dengan tur ini kita akan mengunjungi pulau terindah di Venesia: Murano & Burano!</p>
+                <a href="#murano">read more <i class="fas fa-angle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="box" data-aos="fade-up" data-aos-delay="250">
+            <div class="image" id="c5">
+                <img src="images/doge.jpg" alt="Doge's Palace & Golden Basilica">
+            </div>
+            <div class="content">
+                <h3>St. Mark Square: Doge's Palace & Golden Basilica Tour</h3>
+                <p>Jelajahi Doge's Palace, pusat kekuatan politik Venesia tempat Doge dan dewannya mengambil keputusan untuk Republik Venesia.</p>
+                <a href="#mark">read more <i class="fas fa-angle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="box" data-aos="fade-up" data-aos-delay="300">
+            <div class="image" id="c6">
+                <img src="images/lido.jpg" alt="Lido di Venezia Beach">
+            </div>
+            <div class="content">
+                <h3>Lido di Venezia Beach</h3>
+                <p>Sebuah pantai sepanjang 12 kilometer, hanya berjarak 3 kilometer dari kota Venesia, Lido di Venezia adalah satu lagi pantai menakjubkan yang dimiliki oleh kota romantis ini.</p>
+                <a href="#lido">read more <i class="fas fa-angle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="box" data-aos="fade-up" data-aos-delay="450">
+            <div class="image" id="c7">
+                <img src="images/treasure-hunt.png" alt="treasure-hunt">
+            </div>
+            <div class="content">
+                <h3>Doge's Palace & Basilica Treasure Hunt</h3>
+                <p>Nikmati perburuan harta karun di St.Mark Square! Tur ini dirancang khusus untuk anak-anak untuk terlibat dengan sejarah dan seni Venesia. Ideal untuk anak usia antara 5-12 tahun.</p>
+                <a href="#treasure">read more <i class="fas fa-angle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="box" data-aos="fade-up" data-aos-delay="500">
+            <div class="image" id="c8">
+                <img src="images/cooking.jpg" alt="cooking">
+            </div>
+            <div class="content">
+                <h3>Cooking Class & Lunch of typical Venetian Recipes</h3>
+                <p>Kelas memasak dipimpin oleh koki Venesia di rumahnya, lantai bangsawan kedua dari 1500 istana Venesia yang bergengsi, 10 menit dari Rialto dan St.Mark Square.</p>
+                <a href="#cooking">read more <i class="fas fa-angle-right"></i></a>
+            </div>
+        </div>
+
+    </div>
+
+</section>
 
 <!-- destination section ends -->
 
-<div class="popup" id="popup">
+<div class="popup" id="land">
     <div class="popup-content">
         <div class="popup-header">
             <h2>Land & Water - Walking + Boat tour</h2>
@@ -295,6 +361,7 @@ if (isset($_POST['submit'])) {
         <a href="form.php" class="btnn popup-btn">book now</a>
     </div>
 </div>
+
 
 <!-- services section starts  -->
 
@@ -501,6 +568,7 @@ if (isset($_POST['submit'])) {
 </div>
 
 <!-- banner section ends -->
+
 <!-- footer section starts  -->
 
 <section class="footer">
