@@ -1,3 +1,26 @@
+<?php
+
+include 'config.php';
+error_reporting(0);
+
+session_start();
+
+if (isset($_POST['submit'])) {
+	$username = $_SESSION['username'];
+	$feedback = $_POST['feedback'];
+	
+	$sql = "INSERT INTO fb (username, feedback)
+			VALUES ('$username', '$feedback')";
+	$result = mysqli_query($conn, $sql);
+		if ($result) {
+			echo "<script>alert('Wow! User feedback's Completed.')</script>";
+			$username = "";
+			$feedback = "";
+		} else {
+			echo "<script>alert('Woops! Something Wrong Went.')</script>";
+		}
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,6 +111,7 @@
         <span>our destination</span>
         <h1>make yours destination</h1>
     </div>
+ 
 
     <div class="box-container">
 
@@ -103,7 +127,7 @@
         </div>
 
         <div class="box" data-aos="fade-up" data-aos-delay="100">
-            <div class="image" id="c2">
+            <div class="image" id="c1">
                 <img src="images/cicchetti.jpg" alt="cicchetti">
             </div>
             <div class="content">
@@ -581,11 +605,11 @@
         </div>
 
         <div class="box" data-aos="fade-up" data-aos-delay="200">
-            <h3>newsletter</h3>
-            <p>Masukkan alamat e-mail Anda untuk mendapatkan informasi menarik seputar destinasi liburan terbaik serta promo terbaru kami.</p>
-            <form action="form.php">
-                <input type="email" name="email" placeholder="enter your email" class="email" id="email">
-                <input type="submit" value="subscribe" class="btn">
+            <h3>feedback</h3>
+            <p>SSilahkan beri Feedback Anda untuk kami agar bla bla bla.</p>
+            <form action="" method="post">
+                <input type="text" name="feedback" placeholder="enter your feedback" class="email" id="email">
+                <button name="submit" class="btn">subscribe</button>
             </form>
         </div>
 
