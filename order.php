@@ -4,23 +4,9 @@ include 'config.php';
 error_reporting(0);
 
 session_start();
-
-if (isset($_POST['submit'])) {
-	$username = $_SESSION['username'];
-	$feedback = $_POST['feedback'];
-	
-	$sql = "INSERT INTO fb (username, feedback)
-			VALUES ('$username', '$feedback')";
-	$result = mysqli_query($conn, $sql);
-		if ($result) {
-			echo "<script>alert('Wow! User feedback's Completed.')</script>";
-			$username = "";
-			$feedback = "";
-		} else {
-			echo "<script>alert('Woops! Something Wrong Went.')</script>";
-		}
-}
+$_SESSION["username"] = $username; // $username adalah nilai "nama pengguna"
 ?>
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +35,7 @@ if (isset($_POST['submit'])) {
     <div id="menu-btn" class="fas fa-bars"></div>
 
     <a data-aos="zoom-in-left" data-aos-delay="150" href="isi.php" class="logo"> <i class="fas fa-plane"></i>Havana Tour</a>
-
+ 
     <nav class="navbar">
         <a data-aos="zoom-in-left" data-aos-delay="300" href="isi.php#home">home</a>
         <a data-aos="zoom-in-left" data-aos-delay="450" href="isi.php#about">about</a>
@@ -63,39 +49,51 @@ if (isset($_POST['submit'])) {
 
 </header>
 
-<section class="destination" id="destination" style="padding-top:100px">
-    <div class="heading">
-        <h1>Your Orders</h1>
-    </div>
+<div class="container">
+  <div class="row">
+    <?php
+    require_once "config.php";
+    $select_stmt = $database->prepare("SELECT booking.username, booking.date, booking.people, destinasi.judul, destinasi.gambar 
+                                        FROM booking 
+                                        JOIN destinasi ON booking.destination = destinasi.alt
+                                        WHERE booking.username = :username");
+    $select_stmt->bindParam(':username', $_SESSION["username"]);
+    $select_stmt->execute();
 
-    <div class="box-container" style="width: 100%;">
-        <?php
-        require_once "config.php";
-        $select_stmt = $database->prepare("SELECT * FROM booking WHERE username = :username");
-        $select_stmt->bindParam(':username', $username);
-        $select_stmt->execute();
-        while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
+    while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
             $username = $row['username'];
-            $phone_number = $row['phone_number'];
             $date = $row['date'];
             $people = $row['people'];
-            $destination = $row['alt'];
-        ?>
-            <div class="box">
-                <div class="image">
-                    <img src="<?php echo $gambar ?>" alt="<?php echo $alt ?>">
-                </div> 
-                <div class="content">
-                    <h3><?php echo $judul ?></h3>
-                    <p><?php echo $keterangan ?></p>
-                    <a href="<?php echo $path_detail_destinasi?>">read more <i class="fas fa-angle-right"></i></a>
-                </div>
-            </div>
-        <?php
-        }
-        ?>
+            $gambar = $row['gambar'];
+            $alt = $row['alt'];
+            $judul = $row['judul'];
+    ?>
+      <div class="col-md-4">
+  <div class="box">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="image">
+          <img src="<?php echo $gambar ?>" alt="<?php echo $alt ?>">
+        </div> 
+      </div>
+      <div class="col-md-6">
+        <div class="content">
+          <h3><?php echo $judul ?></h3>
+          <p><?php echo $date ?></p>
+          <div class="tags">
+            <span>tag 1</span>
+            <span>tag 2</span>
+            <span>tag 3</span>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
+  </div>
+</div>
+<?php } ?>
+</div>
+</div>
+
 
 
 </section>
@@ -140,7 +138,7 @@ if (isset($_POST['submit'])) {
 .box .image img {
   height: 100%;
   width: 100%;
-  -o-object-fit: cover;
+  -o-object-fit: cover;     
   object-fit: cover;
 }
 
