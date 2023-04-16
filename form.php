@@ -71,11 +71,11 @@ if (isset($_POST['submit'])) {
 			<div class="main-form">
 				<div><select placeholder="destination" name="destination" id="destination" value="<?php echo $_POST['destination']; ?>" required>
                         <option value="">---Destination---</option>
-                        <option value="d1">des. 1</option>
-                        <option value="d2">des. 2</option>
-                        <option value="d3">des. 3</option>
-                        <option value="p1">paket 1</option>
-						<option value="p2">paket 2</option>
+                        <option value=1>murano</option>
+                        <option value=2>land</option>
+                        <option value=3>grand</option>
+                        <option value=0>paket 1</option>
+						<option value=4>paket 2</option>
                     </select></div>
 			</div>
 			<div id="submit">

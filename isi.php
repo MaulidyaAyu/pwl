@@ -4,7 +4,14 @@ include 'config.php';
 error_reporting(0);
 
 session_start();
+if(isset($_SESSION["username"]))
+$user = $_SESSION["username"];
+else
+header("location:index.php");
+?>
 
+
+<?php 
 if (isset($_POST['submit'])) {
 	$username = $_SESSION['username'];
 	$feedback = $_POST['feedback'];
@@ -24,6 +31,11 @@ if (isset($_POST['submit'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style>
+    header nav a .active{
+        border-bottom: 1px solid white;
+    }
+  </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,18 +62,19 @@ if (isset($_POST['submit'])) {
 
     <div id="menu-btn" class="fas fa-bars"></div>
 
-    <a data-aos="zoom-in-left" data-aos-delay="150" href="isi.php" class="logo"> <i class="fas fa-plane"></i>Havana Tour</a>
-
+    <a href="isi.php" class="logo"> <i class="fas fa-plane"></i>Havana Tour</a>
+ 
     <nav class="navbar">
-        <a data-aos="zoom-in-left" data-aos-delay="300" href="#home">home</a>
-        <a data-aos="zoom-in-left" data-aos-delay="450" href="#about">about</a>
-        <a data-aos="zoom-in-left" data-aos-delay="600" href="#destination">destination</a>
-        <a data-aos="zoom-in-left" data-aos-delay="750" href="#services">services</a>
-        <a data-aos="zoom-in-left" data-aos-delay="900" href="#gallery">gallery</a>
-        <a data-aos="zoom-in-left" data-aos-delay="1150" href="#review">review</a>
+        <a href="isi.php#home"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php' && empty($_SERVER['QUERY_STRING'])) { echo ' class="active"'; } ?>>home</a>
+        <a href="isi.php#about"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php' && $_SERVER['QUERY_STRING'] == '#about') { echo ' class="active"'; } ?>>about</a>
+        <a href="isi.php#destination"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php' && $_SERVER['QUERY_STRING'] == '#destination') { echo ' class="active"'; } ?>>destination</a>
+        <a href="isi.php#services"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php' && $_SERVER['QUERY_STRING'] == '#services') { echo ' class="active"'; } ?>>services</a>
+        <a href="isi.php#gallery"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php' && $_SERVER['QUERY_STRING'] == '#gallery') { echo ' class="active"'; } ?>>gallery</a>
+        <a href="isi.php#review"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php' && $_SERVER['QUERY_STRING'] == '#review') { echo ' class="active"'; } ?>>review</a>
+        <a href="order.php">orders</a>
     </nav>
 
-    <a data-aos="zoom-in-left" data-aos-delay="1300" href="order.php" class="btn">ORDERS</a>
+    <a href="logout.php" class="btn">LOGOUT</a>
 
 </header>
 

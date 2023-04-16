@@ -1,15 +1,20 @@
 <?php
 
 include 'config.php';
-error_reporting(0);
+// error_reporting(0);
 
 session_start();
-$_SESSION["username"] = $username; // $username adalah nilai "nama pengguna"
+// $_SESSION["username"] = $username; // $username adalah nilai "nama pengguna"
 ?>
  
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style>
+    .active{
+      color:white;
+    }
+  </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,27 +32,28 @@ $_SESSION["username"] = $username; // $username adalah nilai "nama pengguna"
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-    
 <!-- header section starts  -->
 
 <header class="header">
 
     <div id="menu-btn" class="fas fa-bars"></div>
 
-    <a data-aos="zoom-in-left" data-aos-delay="150" href="isi.php" class="logo"> <i class="fas fa-plane"></i>Havana Tour</a>
+    <a href="isi.php" class="logo"> <i class="fas fa-plane"></i>Havana Tour</a>
  
     <nav class="navbar">
-        <a data-aos="zoom-in-left" data-aos-delay="300" href="isi.php#home">home</a>
-        <a data-aos="zoom-in-left" data-aos-delay="450" href="isi.php#about">about</a>
-        <a data-aos="zoom-in-left" data-aos-delay="600" href="isi.php#destination">destination</a>
-        <a data-aos="zoom-in-left" data-aos-delay="750" href="isi.php#services">services</a>
-        <a data-aos="zoom-in-left" data-aos-delay="900" href="isi.php#gallery">gallery</a>
-        <a data-aos="zoom-in-left" data-aos-delay="1150" href="isi.php#review">review</a>
+        <a href="isi.php#home"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php#home' && empty($_SERVER['QUERY_STRING'])) { echo ' class="active"'; } ?>>home</a>
+        <a href="isi.php#about"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php#about' && $_SERVER['QUERY_STRING'] == 'about') { echo ' class="active"'; } ?>>about</a>
+        <a href="isi.php#destination"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php#destination' && $_SERVER['QUERY_STRING'] == 'destination') { echo ' class="active"'; } ?>>destination</a>
+        <a href="isi.php#services"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php#service' && $_SERVER['QUERY_STRING'] == 'services') { echo ' class="active"'; } ?>>services</a>
+        <a href="isi.php#gallery"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php#gallery' && $_SERVER['QUERY_STRING'] == 'gallery') { echo ' class="active"'; } ?>>gallery</a>
+        <a href="isi.php#review"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php#review' && $_SERVER['QUERY_STRING'] == 'review') { echo ' class="active"'; } ?>>review</a>
+        <a href="order.php">orders</a>
     </nav>
 
-    <a data-aos="zoom-in-left" data-aos-delay="1300" href="order.php" class="btn">ORDERS</a>
+    <a href="logout.php" class="btn">LOGOUT</a>
 
 </header>
+
 
 <div class="container">
   <div class="row">
@@ -55,46 +61,44 @@ $_SESSION["username"] = $username; // $username adalah nilai "nama pengguna"
     require_once "config.php";
     $select_stmt = $database->prepare("SELECT booking.username, booking.date, booking.people, destinasi.judul, destinasi.gambar 
                                         FROM booking 
-                                        JOIN destinasi ON booking.destination = destinasi.alt
-                                        WHERE booking.username = :username");
-    $select_stmt->bindParam(':username', $_SESSION["username"]);
+                                        JOIN destinasi ON booking.destination = destinasi.id_destinasi");
+                                        // WHERE booking.username = :username");
+    // $select_stmt->bindParam(':username', $_SESSION["username"]);
     $select_stmt->execute();
 
     while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
-            $username = $row['username'];
+            // $username = $row['username'];
             $date = $row['date'];
             $people = $row['people'];
             $gambar = $row['gambar'];
             $alt = $row['alt'];
             $judul = $row['judul'];
     ?>
-      <div class="col-md-4">
-  <div class="box">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="image">
-          <img src="<?php echo $gambar ?>" alt="<?php echo $alt ?>">
-        </div> 
-      </div>
-      <div class="col-md-6">
-        <div class="content">
-          <h3><?php echo $judul ?></h3>
-          <p><?php echo $date ?></p>
-          <div class="tags">
-            <span>tag 1</span>
-            <span>tag 2</span>
-            <span>tag 3</span>
+    <div class="col-md-4">
+      <div class="box">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="image">
+              <img src="<?php echo $gambar ?>" alt="<?php echo $alt ?>">
+            </div> 
+          </div>
+          <div class="col-md-6">
+            <div class="content">
+              <h3><?php echo $judul ?></h3>
+              <p><?php echo $date ?></p>
+              <div class="tags">
+                <span>tag 1</span>
+                <span>tag 2</span>
+                <span>tag 3</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+<?php } ?>
   </div>
 </div>
-<?php } ?>
-</div>
-</div>
-
-
 
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
