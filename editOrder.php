@@ -9,20 +9,24 @@ if(isset($_GET['book_code'])) {
   $select_stmt->execute();
   $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
+  $phone_number = $row['phone_number'];
   $date = $row['date'];
   $people = $row['people'];
   $destination = $row['destination'];
 }
 
 if(isset($_POST['update'])) {
+
+  $phone_number = $row['phone_number'];
   $date = $_POST['date'];
   $people = $_POST['people'];
   $destination = $_POST['destination'];
 
-  $update_stmt = $database->prepare("UPDATE booking SET date = :date, people = :people, destination = :destination WHERE book_code = :book_code");
+  $update_stmt = $database->prepare("UPDATE booking SET phone_number = :phone_number, date = :date, people = :people, destination = :destination WHERE book_code = :book_code");
   $update_stmt->bindParam(':date', $date);
   $update_stmt->bindParam(':people', $people);
   $update_stmt->bindParam(':destination', $destination);
+  $update_stmt->bindParam(':phone_number', $phone_number);
   $update_stmt->bindParam(':book_code', $book_code);
   $update_stmt->execute();
 
@@ -55,19 +59,19 @@ if(isset($_POST['update'])) {
         <form method="post">
             <p class="login-text" style="font-size: 3rem; font-weight: 800;">BOOK NOW</p>
 			<p class="login-text" style="font-size: 1.2rem; font-weight: 400;">You will discover Venice through the eyes of a real Venetian!</p>
+            
+            <div class="main-form">
+				<div><input type="text" name="phone_number" value="<?php echo $phone_number; ?>" required></div>
+			</div><br><br>
+
             <div class="main-form">
 				<div><input type="date" name="date" value="<?php echo $date ?>" required></div>
             </div><br><br>
             
             <div class="main-form">
-				<div><select type="number" name="people" id="people" required>
-                    <option value="<?php echo $people ?>"><?php echo $people ?> People</option>
-                        <option value="1">1 People</option>
-                        <option value="2">2 People</option>
-                        <option value="3">3 People</option>
-                        <option value="4">4 People</option>
-						<option value="more">more</option>
-                    </select></div>
+				<div>
+                    <input type="number" id="people" name="people" min="1" max="36" value="<?php echo $people ?>" required>
+                </div>
 			</div><br><br>
 
             <div class="main-form">

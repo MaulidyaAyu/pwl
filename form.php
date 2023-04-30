@@ -58,25 +58,41 @@ if (isset($_POST['submit'])) {
 			<div class="main-form">
 				<div><input type="date" placeholder="date" name="bdate" value="<?php echo $_POST['bdate']; ?>" required></div>
             </div><br><br>
+
             <div class="main-form">
-				<div><select placeholder="many people" name="people" id="people" value="<?php echo $_POST['people']; ?>" required>
-                        <option value="">---People---</option>
-                        <option value="1">1 People</option>
-                        <option value="2">2 People</option>
-                        <option value="3">3 People</option>
-                        <option value="4">4 People</option>
-						<option value="more">more</option>
-                    </select></div>
+				<div>                                               
+				<input type="number" placeholder="people ammount" id="people" name="people" min="1" max="36" value="<?php echo $_POST['people']; ?>" required>
+ 				</div>
 			</div><br><br>
+			
 			<div class="main-form">
-				<div><select placeholder="destination" name="destination" id="destination" value="<?php echo $_POST['destination']; ?>" required>
-                        <option value="">---Destination---</option>
-                        <option value=1>murano</option>
-                        <option value=2>land</option>
-                        <option value=3>grand</option>
-                        <option value=0>paket 1</option>
-						<option value=4>paket 2</option>
-                    </select></div>
+				<div>
+					<!-- <select placeholder="destination" name="destination" id="destination" value="" required> -->
+                        <!-- <option value="">---Destination---</option> -->
+                        <!-- <option value=1>murano</option> -->
+                        <!-- <option value=2>land</option> -->
+                        <!-- <option value=3>grand</option> -->
+                        <!-- <option value=0>paket 1</option> -->
+						<!-- <option value=4>paket 2</option> -->
+                    <!-- </select> -->
+				
+					<select name="destination" id="destination" required>
+                <?php
+                    $select_stmt = $database->prepare("SELECT * FROM destinasi");
+                    $select_stmt->execute();
+                    while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $id_destinasi = $row['id_destinasi'];
+                        $judul = $row['judul'];
+                        if ($id_destinasi == $destination) {
+                            echo "<option value='' selected disabled hidden>destination</option>";
+                        } else {
+                            echo "<option value='$id_destinasi'>$judul</option>";
+                        }
+                    }
+                ?>
+            </select>
+
+				</div>
 			</div>
 			<div id="submit">
 				<button name="submit" class="btn">BOOK</button>

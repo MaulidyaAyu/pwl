@@ -549,7 +549,7 @@ if (isset($_POST['submit'])) {
 
         <div class="box" data-aos="fade-up" data-aos-delay="200">
             <h3>feedback</h3>
-            <p>SSilahkan beri Feedback Anda untuk kami agar bla bla bla.</p>
+            <p>Silahkan beri Feedback Anda untuk kami!</p>
             <form action="" method="post">
                 <input type="text" name="feedback" placeholder="enter your feedback" class="email" id="email">
                 <button name="submit" class="btn">subscribe</button>
