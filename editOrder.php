@@ -60,7 +60,8 @@ if(isset($_POST['update'])) {
             </div><br><br>
             
             <div class="main-form">
-				<div><select type="number" name="people" id="people" value="<?php echo $people ?>" required>
+				<div><select type="number" name="people" id="people" required>
+                    <option value="<?php echo $people ?>"><?php echo $people ?> People</option>
                         <option value="1">1 People</option>
                         <option value="2">2 People</option>
                         <option value="3">3 People</option>
