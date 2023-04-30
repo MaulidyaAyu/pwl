@@ -90,7 +90,7 @@ if(isset($_POST['update'])) {
                     }
                 ?>
             </select></div>
-			</div>
+			</div><br>
             <div id="submit">
                 <input type="submit" name="update" value="Update" class="btn">
 			</div>
