@@ -54,12 +54,12 @@ session_start();
 </header>
 
 
-<div class="container">
+<div class="container" style="margin-top: 50px;">
   <div class="row">
     <?php
     require_once "config.php";
     $username = $_SESSION['username'];
-    $select_stmt = $database->prepare("SELECT booking.username, booking.date, booking.people, destinasi.judul, destinasi.gambar 
+    $select_stmt = $database->prepare("SELECT booking.book_code, booking.username, booking.date, booking.people, destinasi.judul, destinasi.gambar 
                                         FROM booking 
                                         JOIN destinasi ON booking.destination = destinasi.id_destinasi WHERE booking.username = '$username'");
     $select_stmt->execute();
@@ -68,6 +68,7 @@ session_start();
       $people = $row['people'];
       $judul = $row['judul'];
       $gambar = $row['gambar'];
+      $book_code = $row['book_code'];
     ?>
     <div>
       <div class="box">
@@ -77,9 +78,10 @@ session_start();
         <div class="content">
           <h3><?php echo $judul ?></h3>
           <p>booked for <?php echo $people?> people on <?php echo $date ?></p>
-          <a href="<?php echo $path_detail_destinasi?>">EDIT <i class="fas fa-angle-right"></i></a>
+          <a href="editOrder.php?book_code=<?php echo $book_code ?>" class="btn">EDIT</a>
+          <a href="deleteOrder.php?book_code=<?php echo $book_code ?>" class="btn">DELETE</a>
         </div>
-      </div>
+      </div>                                                                                                                                                                                                                                                                                                                  
     </div><br>
     <?php } ?>
   </div>
