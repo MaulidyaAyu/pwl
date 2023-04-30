@@ -4,7 +4,6 @@ include 'config.php';
 // error_reporting(0);
 
 session_start();
-// $_SESSION["username"] = $username; // $username adalah nilai "nama pengguna"
 ?>
  
 <!DOCTYPE html>
@@ -59,44 +58,30 @@ session_start();
   <div class="row">
     <?php
     require_once "config.php";
+    $username = $_SESSION['username'];
     $select_stmt = $database->prepare("SELECT booking.username, booking.date, booking.people, destinasi.judul, destinasi.gambar 
                                         FROM booking 
-                                        JOIN destinasi ON booking.destination = destinasi.id_destinasi");
-                                        // WHERE booking.username = :username");
-    // $select_stmt->bindParam(':username', $_SESSION["username"]);
+                                        JOIN destinasi ON booking.destination = destinasi.id_destinasi WHERE booking.username = '$username'");
     $select_stmt->execute();
-
     while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
-            // $username = $row['username'];
-            $date = $row['date'];
-            $people = $row['people'];
-            $gambar = $row['gambar'];
-            $alt = $row['alt'];
-            $judul = $row['judul'];
+      $date = $row['date'];
+      $people = $row['people'];
+      $judul = $row['judul'];
+      $gambar = $row['gambar'];
     ?>
-    <div class="col-md-4">
+    <div>
       <div class="box">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="image">
-              <img src="<?php echo $gambar ?>" alt="<?php echo $alt ?>">
-            </div> 
-          </div>
-          <div class="col-md-6">
-            <div class="content">
-              <h3><?php echo $judul ?></h3>
-              <p><?php echo $date ?></p>
-              <div class="tags">
-                <span>tag 1</span>
-                <span>tag 2</span>
-                <span>tag 3</span>
-              </div>
-            </div>
-          </div>
+        <div class="image">
+          <img src="<?php echo $gambar ?>">
+        </div>
+        <div class="content">
+          <h3><?php echo $judul ?></h3>
+          <p>booked for <?php echo $people?> people on <?php echo $date ?></p>
+          <a href="<?php echo $path_detail_destinasi?>">EDIT <i class="fas fa-angle-right"></i></a>
         </div>
       </div>
-    </div>
-<?php } ?>
+    </div><br>
+    <?php } ?>
   </div>
 </div>
 
@@ -113,11 +98,9 @@ session_start();
 </script>
 
 <style>
-    .box-container {
-  display: flex;
+  .box-container {
   flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .box {
@@ -177,7 +160,7 @@ session_start();
 }
 
 </style>
-
+ 
 
 </body>
 </html>
