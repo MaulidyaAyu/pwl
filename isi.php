@@ -106,7 +106,7 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 
-    <div class="content" data-aos="fade-left" data-aos-delay="300">
+    <div class="content" data-aos="fade-left" data-aos-delay="100">
         <span>why choose us?</span>
         <h3>Venice's Awaits You!</h3>
         <p>Apakah Anda tertarik untuk bepergian ke kota Venesia, berlayar, atau memasak hidangan baru — kami berkomitmen untuk menginspirasi Anda untuk mengalami perjalanan dengan cara yang benar-benar baru. Koleksi perjalanan dan buku panduan Havana Tour pasti akan menginspirasi para traveler di dalamnya.</p>
@@ -500,7 +500,7 @@ if (isset($_POST['submit'])) {
 
 <div class="banner">
 
-    <div class="content" data-aos="zoom-in-up" data-aos-delay="500">
+    <div class="content" data-aos="zoom-in-up" data-aos-delay="200">
         <span>start your adventures</span>
         <h3>Let's Explore Venice!</h3>
         <p>We strongly believe in authentic and intimate tours of small groups of people, giving the chance to experience Venice and its surroundings as locals do!</p>

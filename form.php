@@ -67,15 +67,6 @@ if (isset($_POST['submit'])) {
 			
 			<div class="main-form">
 				<div>
-					<!-- <select placeholder="destination" name="destination" id="destination" value="" required> -->
-                        <!-- <option value="">---Destination---</option> -->
-                        <!-- <option value=1>murano</option> -->
-                        <!-- <option value=2>land</option> -->
-                        <!-- <option value=3>grand</option> -->
-                        <!-- <option value=0>paket 1</option> -->
-						<!-- <option value=4>paket 2</option> -->
-                    <!-- </select> -->
-				
 					<select name="destination" id="destination" required>
                 <?php
                     $select_stmt = $database->prepare("SELECT * FROM destinasi");

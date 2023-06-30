@@ -1,0 +1,122 @@
+==>set up struktur buat project drctorynya
+
+- ci_project/
+  - index.php
+  - cart.php
+  - checkout.php
+  - products/
+    - product1.php
+    - product2.php
+    - ...
+  - tests/
+    - cart_test.php
+    - checkout_test.php
+
+------------------------------
+
+==>bkin index.php utk handle rout
+
+<?php
+
+$uri = $_SERVER['REQUEST_URI'];
+
+if ($uri === '/cart/add') {
+    require 'cart.php';
+    addToCart();
+} elseif ($uri === '/checkout') {
+    require 'checkout.php';
+    checkout();
+} else {
+    // Handle other routes
+}
+
+-----------------------------------
+
+==>bkin cart.php buat hdnle add+ produk di cart
+
+<?php
+
+function addToCart()
+{
+    // Retrieve product details from the request
+    $productId = $_POST['product_id'];
+    $quantity = $_POST['quantity'];
+
+    // Add the product to the cart
+    // Your implementation logic here
+
+    // Redirect back to the product page or cart page
+    header('Location: /product.php?id=' . $productId);
+    exit;
+}
+
+----------------------------------------------------
+
+==>bkin checkout.php buat hndle proses checkout
+
+<?php
+
+function checkout()
+{
+    // Display the checkout form
+    // Your implementation logic here
+
+    // Process the form submission
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Validate the form input
+        // Your validation logic here
+
+        // Process the order
+        // Your order processing logic here
+
+        // Redirect to order confirmation page
+        header('Location: /confirmation.php');
+        exit;
+    }
+}
+
+
+-----------------------------------------------------
+
+==>bkin individu buat produk file di 'products/' drectory buat hndle detail produk
+
+<?php
+
+// Fetch the product details from the database or any data source
+$productName = 'Product Name';
+$price = 10.99;
+// ...
+
+// Display product details
+echo "<h1>$productName</h1>";
+echo "<p>Price: $price</p>";
+
+// Add to cart form
+echo "<form action=\"/cart/add\" method=\"post\">";
+echo "<input type=\"hidden\" name=\"product_id\" value=\"1\">";
+echo "<input type=\"number\" name=\"quantity\" value=\"1\" min=\"1\">";
+echo "<button type=\"submit\">Add to Cart</button>";
+echo "</form>";
+
+
+-------------------------------------------------------------------------
+
+==>bkin test utk cart sm checkout function di 'tests/' drectory
+
+<?php
+
+// Cart tests (cart_test.php)
+function testAddToCart()
+{
+    // Test adding a product to the cart
+    // Your test logic here
+}
+
+// Checkout tests (checkout_test.php)
+function testCheckout()
+{
+    // Test the checkout process
+    // Your test logic here
+}
+
+---------------------------------------------------------------------------

@@ -9,9 +9,23 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <style>
-    .active{
-      color:white;
+<style>
+    header nav a .active{
+        border-bottom: 1px solid white;
+    }
+
+    .btn1 {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      color: rgb(181, 184, 175);
+      border: 0.2rem solid rgb(181, 184, 175);
+      border-radius: 1rem;
+      cursor: pointer;
+      background: none;
+    }
+
+    .btn1:hover {
+      background: rgb(97, 99, 94);
     }
   </style>
     <meta charset="UTF-8">
@@ -29,6 +43,8 @@ session_start();
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+
 </head>
 <body>
 <!-- header section starts  -->
@@ -40,12 +56,12 @@ session_start();
     <a href="isi.php" class="logo"> <i class="fas fa-plane"></i>Havana Tour</a>
  
     <nav class="navbar">
-        <a href="isi.php#home"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php#home' && empty($_SERVER['QUERY_STRING'])) { echo ' class="active"'; } ?>>home</a>
-        <a href="isi.php#about"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php#about' && $_SERVER['QUERY_STRING'] == 'about') { echo ' class="active"'; } ?>>about</a>
-        <a href="isi.php#destination"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php#destination' && $_SERVER['QUERY_STRING'] == 'destination') { echo ' class="active"'; } ?>>destination</a>
-        <a href="isi.php#services"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php#service' && $_SERVER['QUERY_STRING'] == 'services') { echo ' class="active"'; } ?>>services</a>
-        <a href="isi.php#gallery"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php#gallery' && $_SERVER['QUERY_STRING'] == 'gallery') { echo ' class="active"'; } ?>>gallery</a>
-        <a href="isi.php#review"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php#review' && $_SERVER['QUERY_STRING'] == 'review') { echo ' class="active"'; } ?>>review</a>
+        <a href="isi.php#home"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php' && empty($_SERVER['QUERY_STRING'])) { echo ' class="active"'; } ?>>home</a>
+        <a href="isi.php#about"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php' && $_SERVER['QUERY_STRING'] == '#about') { echo ' class="active"'; } ?>>about</a>
+        <a href="isi.php#destination"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php' && $_SERVER['QUERY_STRING'] == '#destination') { echo ' class="active"'; } ?>>destination</a>
+        <a href="isi.php#services"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php' && $_SERVER['QUERY_STRING'] == '#services') { echo ' class="active"'; } ?>>services</a>
+        <a href="isi.php#gallery"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php' && $_SERVER['QUERY_STRING'] == '#gallery') { echo ' class="active"'; } ?>>gallery</a>
+        <a href="isi.php#review"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php' && $_SERVER['QUERY_STRING'] == '#review') { echo ' class="active"'; } ?>>review</a>
         <a href="order.php">orders</a>
     </nav>
 
@@ -53,9 +69,13 @@ session_start();
 
 </header>
 
+<section class="destination" id="destination">
 
-<div class="container" style="margin-top: 50px;">
-  <div class="row">
+  <div class="heading">
+    <br><br><br><br><br>
+  </div>
+
+  <div class="box-container">
     <?php
     require_once "config.php";
     $username = $_SESSION['username'];
@@ -63,31 +83,41 @@ session_start();
                                         FROM booking 
                                         JOIN destinasi ON booking.destination = destinasi.id_destinasi WHERE booking.username = '$username'");
     $select_stmt->execute();
-    while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
-      $date = $row['date'];
-      $people = $row['people'];
-      $judul = $row['judul'];
-      $gambar = $row['gambar'];
-      $book_code = $row['book_code'];
+    if ($select_stmt->rowCount() > 0) {
+      while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
+        $date = $row['date'];
+        $people = $row['people'];
+        $judul = $row['judul'];
+        $gambar = $row['gambar'];
+        $book_code = $row['book_code'];
+        ?>
+        <div class="box">
+            <div class="image">
+              <img src="<?php echo $gambar ?>">
+            </div> 
+            <div class="content">
+              <h3><?php echo $judul ?></h3>
+              <p>booked for <?php echo $people?> people on <?php echo $date ?></p>
+              <a href="editOrder.php?book_code=<?php echo $book_code ?>" class="btn1" style="margin-left: 53%">EDIT</a>
+              <a href="deleteOrder.php?book_code=<?php echo $book_code ?>" class="btn1" style="margin-left: 4%">DELETE</a>
+            </div>
+        </div>
+        <?php
+      }
+    } else {
+      // Tampilkan pesan jika keranjang kosong
+      ?>
+      <br><br><br><br><br><br>
+      <div class="heading">
+        <span>Go get your destination!</span>
+      </div>
+    <?php
+    }
     ?>
-    <div>
-      <div class="box">
-        <div class="image">
-          <img src="<?php echo $gambar ?>">
-        </div>
-        <div class="content">
-          <h3><?php echo $judul ?></h3>
-          <p>booked for <?php echo $people?> people on <?php echo $date ?></p>
-          <a href="editOrder.php?book_code=<?php echo $book_code ?>" class="btn">EDIT</a>
-          <a href="deleteOrder.php?book_code=<?php echo $book_code ?>" class="btn">DELETE</a>
-        </div>
-      </div>                                                                                                                                                                                                                                                                                                                  
-    </div><br>
-    <?php } ?>
-  </div>
 </div>
-
 </section>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
 <script>
