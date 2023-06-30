@@ -30,7 +30,7 @@ if(isset($_POST['update'])) {
   $update_stmt->bindParam(':book_code', $book_code);
   $update_stmt->execute();
 
-  header("Location: order.php");
+  header("Location: cart.php");
 }
 ?>
 

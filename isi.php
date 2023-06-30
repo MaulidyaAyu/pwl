@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style>
+    <style>
     header nav a .active{
         border-bottom: 1px solid white;
     }
@@ -71,7 +71,8 @@ if (isset($_POST['submit'])) {
         <a href="isi.php#services"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php' && $_SERVER['QUERY_STRING'] == '#services') { echo ' class="active"'; } ?>>services</a>
         <a href="isi.php#gallery"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php' && $_SERVER['QUERY_STRING'] == '#gallery') { echo ' class="active"'; } ?>>gallery</a>
         <a href="isi.php#review"<?php if(basename($_SERVER['PHP_SELF']) == 'isi.php' && $_SERVER['QUERY_STRING'] == '#review') { echo ' class="active"'; } ?>>review</a>
-        <a href="order.php">orders</a>
+        <a href="cart.php">cart</a>
+        <a href="order.php">order</a>
     </nav>
 
     <a href="logout.php" class="btn">LOGOUT</a>

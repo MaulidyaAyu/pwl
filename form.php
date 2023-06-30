@@ -75,7 +75,7 @@ if (isset($_POST['submit'])) {
                         $id_destinasi = $row['id_destinasi'];
                         $judul = $row['judul'];
                         if ($id_destinasi == $destination) {
-                            echo "<option value='' selected disabled hidden>destination</option>";
+                            echo "<option value='0' selected disabled hidden>destination</option>";
                         } else {
                             echo "<option value='$id_destinasi'>$judul</option>";
                         }
