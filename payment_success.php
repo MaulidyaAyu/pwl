@@ -32,7 +32,15 @@ if (isset($_GET['book_code']) && isset($_GET['total_price'])) {
     $select_stmt->execute();
     $order = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Display the payment success notification and order details
+
+    // Hapus data booking dari tabel 'booking'
+    $delete_stmt = $database->prepare("DELETE FROM booking WHERE username = :username ");
+    $delete_stmt->bindParam(':username', $_SESSION['username']);
+    $delete_stmt->execute();
+
+    // Hapus data dari session keranjang
+    unset($_SESSION['cart']);
+
     ?>
 
     <!DOCTYPE html>
@@ -111,7 +119,7 @@ if (isset($_GET['book_code']) && isset($_GET['total_price'])) {
             <br>tour start at: <?php echo $order['date']; ?>
             <br>tour Destination: <?php echo $order['judul']; ?>
             <br>amount of People: <?php echo $order['people'] ; ?>
-            <br>price: IDR <?php echo $order['harga']?>
+            <br>price: IDR <?php echo number_format($order['harga'], 2)?>
             <br>Total Price: IDR <?php echo $total_price; ?></p><br><br>
             <a href="order.php" class="btn1">DONE</a>
     </div>

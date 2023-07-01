@@ -137,6 +137,7 @@ if (isset($_POST['submit'])) {
         $judul = $row['judul'];
         $keterangan = $row['keterangan'];
         $alt = $row['alt'];
+        $harga = $row['harga'];
         $path_detail_destinasi = $row['path_detail_destinasi'];
     ?>
         <div class="box" data-aos="fade-up" data-aos-delay="50">
@@ -146,6 +147,7 @@ if (isset($_POST['submit'])) {
             <div class="content">
                 <h3><?php echo $judul ?></h3>
                 <p><?php echo $keterangan ?></p>
+                <p>Harga: IDR <?php echo number_format($harga, 2) ?>/orang</p>
                 <a href="<?php echo $path_detail_destinasi?>">read more <i class="fas fa-angle-right"></i></a>
             </div>
         </div>

@@ -5,6 +5,7 @@ include 'config.php';
 
 session_start();
 ?>
+
  
 <!DOCTYPE html>
 <html lang="en">
@@ -106,7 +107,7 @@ session_start();
     <?php
     require_once "config.php";
     $username = $_SESSION['username'];
-    $select_stmt = $database->prepare("SELECT booking.book_code, booking.username, booking.date, booking.people, destinasi.judul, destinasi.gambar 
+    $select_stmt = $database->prepare("SELECT booking.book_code, booking.username, booking.date, booking.people, destinasi.judul, destinasi.gambar, destinasi.harga
                                         FROM booking 
                                         JOIN destinasi ON booking.destination = destinasi.id_destinasi WHERE booking.username = '$username'");
     $select_stmt->execute();
@@ -116,6 +117,7 @@ session_start();
         $people = $row['people'];
         $judul = $row['judul'];
         $gambar = $row['gambar'];
+        $harga = $row['harga'];
         $book_code = $row['book_code'];
         ?>
         <div class="box">
@@ -124,7 +126,8 @@ session_start();
             </div> 
             <div class="content">
               <h3><?php echo $judul ?></h3>
-              <p>booking for <?php echo $people?> people on <?php echo $date ?></p>
+              <p>booking for <?php echo $people?> people on <?php echo $date ?><br>
+              Total price: IDR <?php echo number_format($harga * $people, 2) ?></p>
               <a href="editOrder.php?book_code=<?php echo $book_code ?>" class="btn1">EDIT</a>
               <a href="checkout.php" class="btn1" style="margin-left: 34%">CHECKOUT</a><br><br>
               <a href="deleteOrder.php?book_code=<?php echo $book_code ?>" class="btn2" style="margin-left: 90%; font-size: 30px;">&times;</a>

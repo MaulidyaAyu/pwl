@@ -138,8 +138,6 @@ if ($select_stmt->rowCount() > 0) {
       $gambar = $row['gambar'];
       $harga = $row['harga'];
       $book_code = $row['book_code'];
-      $subtotal = $harga * $people;
-      $totalPrice += $subtotal;
       ?>
 <section class="about" id="about">
 <div class="video-container1" data-aos="fade-right" data-aos-delay="300">
@@ -151,10 +149,10 @@ if ($select_stmt->rowCount() > 0) {
         <span><?php echo $judul ?></span>
         <h3>Booking for <?php echo $people?> people <br>
         on <?php echo $date ?></h3>
-        <span>price: IDR <?php echo $harga ?>/orang<br>
-        Total price: IDR <?php echo $totalPrice ?></span><br><br>
+        <span>price: IDR <?php echo number_format($harga, 2) ?>/orang<br>
+        Total price: IDR <?php echo number_format($harga * $people, 2) ?></span><br><br>
         <a href="cart.php" class="btn1">BACK</a>
-        <a href="payment_success.php?book_code=<?php echo $book_code; ?>&total_price=<?php echo $totalPrice; ?>" class="btn1" style="margin-left: 10%;">PAY</a>
+        <a href="payment_success.php?book_code=<?php echo $book_code; ?>&total_price=<?php echo number_format($harga * $people, 2) ?>" class="btn1" style="margin-left: 10%;">PAY</a>
     </div>
 
 </section>
