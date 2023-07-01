@@ -15,17 +15,43 @@ session_start();
     }
 
     .btn1 {
-      display: inline-block;
-      padding: 0.2rem 0.6rem;
+        margin-top: 1rem;
+        display: inline-block;
+        padding: 0.3rem 1rem;
+        font-size: 1.5rem;
+        color: rgb(181, 184, 175);
+        border: 0.2rem solid rgb(222, 226, 214);
+        border-radius: 2rem;
+        cursor: pointer;
+        background: none;
+    }
+
+    .btn1:hover {
+        background: rgb(181, 184, 175);
+        color: #111;
+    }
+
+    .btn2 {
       color: rgb(181, 184, 175);
-      border: 0.2rem solid rgb(181, 184, 175);
-      border-radius: 1rem;
       cursor: pointer;
       background: none;
     }
 
-    .btn1:hover {
-      background: rgb(97, 99, 94);
+    .btn3 {
+      margin-top: 1rem;
+      display: inline-block;
+      padding: 0.4rem 2rem;
+      font-size: 1.7rem;
+      color: rgb(181, 184, 175);
+      border: 0.2rem solid rgb(181, 184, 175);
+      border-radius: 5rem;
+      cursor: pointer;
+      background: none;
+    }
+
+    .btn3:hover {
+      background: rgb(181, 184, 175);
+      color: #111;
     }
   </style>
     <meta charset="UTF-8">
@@ -99,8 +125,9 @@ session_start();
             <div class="content">
               <h3><?php echo $judul ?></h3>
               <p>booking for <?php echo $people?> people on <?php echo $date ?></p>
-              <a href="editOrder.php?book_code=<?php echo $book_code ?>" class="btn1" style="margin-left: 53%">EDIT</a>
-              <a href="deleteOrder.php?book_code=<?php echo $book_code ?>" class="btn1" style="margin-left: 4%">DELETE</a>
+              <a href="editOrder.php?book_code=<?php echo $book_code ?>" class="btn1">EDIT</a>
+              <a href="checkout.php" class="btn1" style="margin-left: 34%">CHECKOUT</a><br><br>
+              <a href="deleteOrder.php?book_code=<?php echo $book_code ?>" class="btn2" style="margin-left: 90%; font-size: 30px;">&times;</a>
             </div>
         </div>
         <?php

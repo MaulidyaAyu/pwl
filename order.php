@@ -4,6 +4,10 @@ include 'config.php';
 // error_reporting(0);
 
 session_start();
+if(isset($_SESSION["username"]))
+$user = $_SESSION["username"];
+else
+header("location:index.php");
 ?>
  
 <!DOCTYPE html>
@@ -17,8 +21,8 @@ session_start();
     .btn1 {
         margin-top: 1rem;
         display: inline-block;
-        padding: 1rem 1rem;
-        font-size: 1.7rem;
+        padding: 0.3rem 1rem;
+        font-size: 1.5rem;
         color: rgb(181, 184, 175);
         border: 0.2rem solid rgb(222, 226, 214);
         border-radius: 5rem;
@@ -43,7 +47,7 @@ session_start();
     }
 
     .card {
-        background-color: gray;
+        background-color: #222;
         border-radius: 20px;
     }
 
@@ -63,6 +67,7 @@ session_start();
         height: 80%;
         overflow: hidden;
         width: 90%;
+        border-radius: 20px;
     }
 
     .img img {
@@ -84,6 +89,24 @@ session_start();
         width: 100%;
         -o-object-fit: cover;
         object-fit: cover;
+        border-radius: 15px;
+    }
+
+    .btn3 {
+      margin-top: 1rem;
+      display: inline-block;
+      padding: 0.4rem 2rem;
+      font-size: 1.7rem;
+      color: rgb(181, 184, 175);
+      border: 0.2rem solid rgb(181, 184, 175);
+      border-radius: 5rem;
+      cursor: pointer;
+      background: none;
+    }
+
+    .btn3:hover {
+      background: rgb(181, 184, 175);
+      color: #111;
     }
 
   </style>
@@ -153,284 +176,304 @@ session_start();
         $book_code = $row['book_code'];
         $path_detail_destinasi = $row['path_detail_destinasi'];
         ?>
-			<div class="cards">
-				<div class="card">
-					<div class="details">
-            <table>
-				<tbody>
-				    <tr>
-					    <th>
-                            <div class="img">
-                                <img src="<?php echo $gambar ?>">
-                            </div>
-                        </th>
-					    <td>
-                            <h3><?php echo $judul ?></h3>
-                            <p>booked for <?php echo $people?> people on <?php echo $date ?></p>
-                            <a href="<?php echo $path_detail_destinasi?>" class="btn1" style="color: white;">DETAILS</a>
-                        </td>
-				    </tr>
-                </tbody>
-            </table>
-                    </div>
-                </div>
+		<div class="cards">
+            <div class="card">
+                <div class="details">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <div class="img">
+                                        <img src="<?php echo $gambar ?>">
+                                    </div>
+                                </th>
+                                <td>
+                                    <h3><?php echo $judul ?></h3>
+                                    <p>booked for <?php echo $people?> people on <?php echo $date ?></p>
+                                    <a href="<?php echo $path_detail_destinasi ?>" class="btn1" style="color: white;">DETAIL</a>
+                                <?php
+                                    // Popup content
+                                    if ($judul === "Land & Water - Walking + Boat tour") {
+                                        ?>
+                                        <div class="popup" id="popup">
+                                            <div class="popup-content" style="color: black;">
+                                                <div class="popup-header">
+                                                    <p style="font-size: 2rem;"><b>Land & Water - Walking + Boat tour</b></p>
+                                                </div>
+                                                <div class="popup-text">
+                                                    <table style="margin-right: 10%; margin-left: 10%">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">
+                                                                    <div class="img1">
+                                                                        <img src="<?php echo $gambar ?>">
+                                                                    </div>
+                                                                </th>
+                                                                <td>
+                                                                    <h1>you booked this destination for <?php echo $people?> people.
+                                                                    <br>The tour will be held on <?php echo $date ?></h1><br>
+                                                                    <h2>> we will walk through the backstreets and the squares.
+                                                                    <br>> We will cross the famous Bridge, the oldest over the Grand Canal, and explore the bustling surroundings of the best fresh produce market in the city.
+                                                                    <br>> The last hour will be on a luxury private boat.
+                                                                    <br>> Possibility to end the tour to the Island of Murano to visit a private glass factory.</h2>
+                                                                    <br>
+                                                                    <h2>Duration: 3 hours + 1.</h2>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <a href="#c1" class="btnn popup-btn">CLOSE</a>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    } elseif ($judul === "Grand Canal by Private Boat + Cicchetti & Wine Tour") {
+                                        ?>
+                                        <div class="popup" id="grand">
+                                            <div class="popup-content" style="color: black;">
+                                                <div class="popup-header">
+                                                    <p style="font-size: 2rem;"><b>Grand Canal by Private Boat + Cicchetti & Wine Tour</b></p>
+                                                </div>
+                                                <div class="popup-text">
+                                                    <table style="margin-right: 10%; margin-left: 10%">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">
+                                                                    <div class="img1">
+                                                                        <img src="<?php echo $gambar ?>">
+                                                                    </div>
+                                                                </th>
+                                                                <td>
+                                                                    <h1>you booked this destination for <?php echo $people?> people.
+                                                                    <br>The tour will be held on <?php echo $date ?></h1><br>
+                                                                    <h2>> This private tour by motor launch and you can admire the magnificent palaces with the help of your guide recounting the stories and history.
+                                                                    <br>> When you got off the boat you can walk through Fondamenta della Misericordia.
+                                                                    <br>> You can enjoy the typicals Venetians cicchetti (food bites) with local wine. 
+                                                                    </h2>
+                                                                    <br>
+                                                                    <h2>Duration only Boat:1 hour.</h2>
+                                                                    <h2>Duration (Boat + Cicchetti): 2 hours.</h2>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <a href="#c2" class="btnn popup-btn">CLOSE</a>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    } elseif ($judul === "Galleria dell' Accademia") {
+                                        ?>
+                                        <div class="popup" id="galleria">
+                                            <div class="popup-content" style="color: black;">
+                                                <div class="popup-header">
+                                                    <p style="font-size: 2rem;"><b>Galleria dell' Accademia</b></p>
+                                                </div>
+                                                <div class="popup-text">
+                                                    <table style="margin-right: 10%; margin-left: 10%">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">
+                                                                    <div class="img">
+                                                                        <img src="<?php echo $gambar ?>">
+                                                                    </div>
+                                                                </th>
+                                                                <td>
+                                                                    <h1>you booked this destination for <?php echo $people?> people.
+                                                                    <br>The tour will be held on <?php echo $date ?></h1><br>
+                                                                    <h2>> priority entrance with David Florence tickets to the Accademia Gallery.</h2>
+                                                                    <br>
+                                                                    <h2>Duration: Approx. 1.5 hours</h2>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <a href="#c3" class="btnn popup-btn">CLOSE</a>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }elseif ($judul === "The colorful islands: Murano & Burano") {
+                                        ?>
+                                        <div class="popup" id="murano">
+                                            <div class="popup-content" style="color: black;">
+                                                <div class="popup-header">
+                                                    <p style="font-size: 2rem;"><b>The colorful islands: Murano & Burano</b></p>
+                                                </div>
+                                                <div class="popup-text">
+                                                    <table style="margin-right: 10%; margin-left: 10%">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">
+                                                                    <div class="img">
+                                                                        <img src="<?php echo $gambar ?>">
+                                                                    </div>
+                                                                </th>
+                                                                <td>
+                                                                    <h1>you booked this destination for <?php echo $people?> people.
+                                                                    <br>The tour will be held on <?php echo $date ?></h1><br>
+                                                                    <h2>> we will visit the most beautiful islands of Venice: Murano & Burano!
+                                                                    <br>> It is a boat tour with a private watertaxi, the first stop is the island of Murano, where the glass blowing dates back to the 10th century.
+                                                                    <br>> Then we will visit Burano, a fishermen's island known for its vibrant multi-colored houses.
+                                                                    </h2>
+                                                                    <br>
+                                                                    <h2>Duration: 4 or 5 hours.</h2>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <a href="#c4" class="btnn popup-btn">CLOSE</a>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }elseif ($judul === "St. Mark Square: Doge's Palace & Golden Basilica Tour") {
+                                        ?>
+                                        <div class="popup" id="mark">
+                                            <div class="popup-content" style="color: black;">
+                                                <div class="popup-header">
+                                                    <p style="font-size: 2rem;"><b>St. Mark Square: Doge's Palace & Golden Basilica Tour</b></p>
+                                                </div>
+                                                <div class="popup-text">
+                                                    <table style="margin-right: 10%; margin-left: 10%">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">
+                                                                    <div class="img">
+                                                                        <img src="<?php echo $gambar ?>">
+                                                                    </div>
+                                                                </th>
+                                                                <td>
+                                                                    <h1>you booked this destination for <?php echo $people?> people.
+                                                                    <br>The tour will be held on <?php echo $date ?></h1><br>
+                                                                    <h2>> an overview of the courtyard, and carry on through the the Institutional Chambers: the most magnificent is the Chamber of the Great Council.
+                                                                    <br>> we will discover one of the world's most majestic cathedrals, a true masterpiece of Byzantine art
+                                                                    <br>> I will also lead you over the Bridge of Sighs, to the Prisons.
+                                                                    </h2>
+                                                                    <br>
+                                                                    <h2>Duration: 2 hours.</h2>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <a href="#c5" class="btnn popup-btn">CLOSE</a>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }elseif ($judul === "Lido di Venezia Beach") {
+                                        ?>
+                                        <div class="popup" id="lido">
+                                            <div class="popup-content" style="color: black;">
+                                                <div class="popup-header">
+                                                    <p style="font-size: 2rem;"><b>Lido di Venezia Beach</b></p>
+                                                </div>
+                                                <div class="popup-text">
+                                                    <table style="margin-right: 10%; margin-left: 10%">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">
+                                                                    <div class="img">
+                                                                        <img src="<?php echo $gambar ?>">
+                                                                    </div>
+                                                                </th>
+                                                                <td>
+                                                                    <h1>you booked this destination for <?php echo $people?> people.
+                                                                    <br>The tour will be held on <?php echo $date ?></h1><br>
+                                                                    <h2>> you can use all Alilaguna boat transfers for 72 hours from the time you exchange your voucher.
+                                                                    <br>> Get around Venice using any of the three lines to explore the city at your own pace.
+                                                                    <br>> including the line that connects Venice Marco Polo Airport and the Venice cruise port to the city center, Lido and Murano Island.
+                                                                    </h2>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <a href="#c6" class="btnn popup-btn">CLOSE</a>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }elseif ($judul === "Doge's Palace & Basilica Treasure Hunt") {
+                                        ?>
+                                        <div class="popup" id="treasure">
+                                            <div class="popup-content" style="color: black;">
+                                                <div class="popup-header">
+                                                    <p style="font-size: 2rem;"><b>Doge's Palace & Basilica Treasure Hunt</b></p>
+                                                </div>
+                                                <div class="popup-text">
+                                                    <table style="margin-right: 10%; margin-left: 10%">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">
+                                                                    <div class="img">
+                                                                        <img src="<?php echo $gambar ?>">
+                                                                    </div>
+                                                                </th>
+                                                                <td>
+                                                                    <h1>you booked this destination for <?php echo $people?> people.
+                                                                    <br>The tour will be held on <?php echo $date ?></h1><br>
+                                                                    <h2>> This tour is designed especially for children to engage with the history and art of Venice.
+                                                                    <br>> Ideal for children aged between 5-12 years.
+                                                                    <br>> After skipping the queques I will lead your family through the Basilica and Doge's Palace, with clues and riddles
+                                                                    </h2>
+                                                                    <br>
+                                                                    <h2>Duration 2 hours.</h2>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <a href="#c7" class="btnn popup-btn">CLOSE</a>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }elseif ($judul === "Cooking Class & Lunch of typical Venetian Recipes") {
+                                        ?>
+                                        <div class="popup" id="cooking">
+                                            <div class="popup-content" style="color: black;">
+                                                <div class="popup-header">
+                                                    <p style="font-size: 2rem;"><b>Cooking Class & Lunch of typical Venetian Recipes</b></p>
+                                                </div>
+                                                <div class="popup-text">
+                                                    <table style="margin-right: 10%; margin-left: 10%">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">
+                                                                    <div class="img">
+                                                                        <img src="<?php echo $gambar ?>">
+                                                                    </div>
+                                                                </th>
+                                                                <td>
+                                                                    <h1>you booked this destination for <?php echo $people?> people.
+                                                                        <br>The tour will be held on <?php echo $date ?></h1><br>
+                                                                        <h2>> The cooking classes are leaded by a Venetian chef in his home.
+                                                                        <br>>  Fish and Meat menu available. Welcome drink. Pilchards in sweet and sour, scallops au gratin in Venetian style and so on
+                                                                        </h2>
+                                                                        <br>
+                                                                        <h2>
+                                                                            <br>Duration: 4 hours.<br>
+                                                                            (from 10.00 am to 2.00 pm)<br>
+                                                                            From 1 to 6 people.
+                                                                        </h2>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <a href="#c8" class="btnn popup-btn">CLOSE</a>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
+                                ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-
-<div class="popup" id="popup">
-    <div class="popup-content">
-        <div class="popup-header">
-            <p style="font-size: 2rem;"><b>Land & Water - Walking + Boat tour</b></p>
         </div>
-        <div class="popup-text">    
-            <table style="margin-right: 10%; margin-left: 10%">
-				<tbody>
-				    <tr>
-					    <th scope="row">
-                            <div class="img1">
-                                <img src="images/rialto.jpg">
-                            </div>
-					    </th>
-					    <td>
-                            <h1>you booked this destination for <?php echo $people?> people.
-                            <br>The tour will be held on <?php echo $date ?></h1><br>
-                            <h2>> we will walk through the backstreets and the squares.
-                            <br>> We will cross the famous Bridge, the oldest over the Grand Canal, and explore the bustling surroundings of the best fresh produce market in the city.
-                            <br>> The last hour will be on a luxury private boat.
-                            <br>> Possibility to end the tour to the Island of Murano to visit a private glass factory.</h2>
-                            <br>
-                            <h2>Duration: 3 hours + 1.</h2>
-					    </td>
-				    </tr>
-                </tbody>
-            </table>
-        </div>
-        <a href="#c1" class="btnn popup-btn">CLOSE</a>
     </div>
-</div>
-
-<div class="popup" id="grand">
-    <div class="popup-content">
-        <div class="popup-header">
-            <p style="font-size: 2rem;"><b>Grand Canal by Private Boat + Cicchetti & Wine Tour</b></p>
-        </div>
-        <div class="popup-text">    
-            <table style="margin-right: 10%; margin-left: 10%">
-				<tbody>
-				    <tr>
-					    <th scope="row">
-                            <div class="img1">
-                                <img src="images/cicchetti.jpg">
-                            </div>
-					    </th>
-					    <td>
-                            <h1>you booked this destination for <?php echo $people?> people.
-                            <br>The tour will be held on <?php echo $date ?></h1><br>
-                            <h2>> This private tour by motor launch and you can admire the magnificent palaces with the help of your guide recounting the stories and history.
-                            <br>> When you got off the boat you can walk through Fondamenta della Misericordia.
-                            <br>> You can enjoy the typicals Venetians cicchetti (food bites) with local wine. 
-                            </h2>
-                            <br>
-                            <h2>Duration only Boat:1 hour.</h2>
-                            <h2>Duration (Boat + Cicchetti): 2 hours.</h2>
-					    </td>
-				    </tr>
-                </tbody>
-            </table>
-        </div>
-        <a href="#c2" class="btnn popup-btn">CLOSE</a>
-    </div>
-</div>
-
-<div class="popup" id="galleria">
-    <div class="popup-content">
-        <div class="popup-header">
-            <p style="font-size: 2rem;"><b>Galleria dell' Accademia</b></p>
-        </div>
-        <div class="popup-text">    
-            <table style="margin-right: 10%; margin-left: 10%">
-				<tbody>
-				    <tr>
-					    <th scope="row">
-                            <div class="img">
-                                <img src="images/Galleria.jpg">
-                            </div>
-					    </th>
-					    <td>
-                            <h1>you booked this destination for <?php echo $people?> people.
-                            <br>The tour will be held on <?php echo $date ?></h1><br>
-                            <h2>> priority entrance with David Florence tickets to the Accademia Gallery.</h2>
-                            <br>
-                            <h2>Duration: Approx. 1.5 hours</h2>
-					    </td>
-				    </tr>
-                </tbody>
-            </table>
-        </div>
-        <a href="#c3" class="btnn popup-btn">CLOSE</a>
-    </div>
-</div>
-
-<div class="popup" id="murano">
-    <div class="popup-content">
-        <div class="popup-header">
-            <p style="font-size: 2rem;"><b>The colorful islands: Murano & Burano</b></p>
-        </div>
-        <div class="popup-text">    
-            <table style="margin-right: 10%; margin-left: 10%">
-				<tbody>
-				    <tr>
-					    <th scope="row">
-                            <div class="img1">
-                                <img src="images/murano-burano.jpg">
-                            </div>
-					    </th>
-					    <td>
-                            <h1>you booked this destination for <?php echo $people?> people.
-                            <br>The tour will be held on <?php echo $date ?></h1><br>
-                            <h2>> we will visit the most beautiful islands of Venice: Murano & Burano!
-                            <br>> It is a boat tour with a private watertaxi, the first stop is the island of Murano, where the glass blowing dates back to the 10th century.
-                            <br>> Then we will visit Burano, a fishermen's island known for its vibrant multi-colored houses.
-                            </h2>
-                            <br>
-                            <h2>Duration: 4 or 5 hours.</h2>
-					    </td>
-				    </tr>
-                </tbody>
-            </table>
-        </div>
-        <a href="#c4" class="btnn popup-btn">CLOSE</a>
-    </div>
-</div>
-
-<div class="popup" id="mark">
-    <div class="popup-content">
-        <div class="popup-header">
-            <p style="font-size: 2rem;"><b>St. Mark Square: Doge's Palace & Golden Basilica Tour</b></p>
-        </div>
-        <div class="popup-text">    
-            <table style="margin-right: 10%; margin-left: 10%">
-				<tbody>
-				    <tr>
-					    <th scope="row">
-                            <div class="img1">
-                                <img src="images/doge.jpg">
-                            </div>
-					    </th>
-					    <td>
-                            <h1>you booked this destination for <?php echo $people?> people.
-                            <br>The tour will be held on <?php echo $date ?></h1><br>
-                            <h2>> an overview of the courtyard, and carry on through the the Institutional Chambers: the most magnificent is the Chamber of the Great Council.
-                            <br>> we will discover one of the world's most majestic cathedrals, a true masterpiece of Byzantine art
-                            <br>> I will also lead you over the Bridge of Sighs, to the Prisons.
-                            </h2>
-                            <br>
-                            <h2>Duration: 2 hours.</h2>
-					    </td>
-				    </tr>
-                </tbody>
-            </table>
-        </div>
-        <a href="#c5" class="btnn popup-btn">CLOSE</a>
-    </div>
-</div>
-
-<div class="popup" id="lido">
-    <div class="popup-content">
-        <div class="popup-header">
-            <p style="font-size: 2rem;"><b>Lido di Venezia Beach</b></p>
-        </div>
-        <div class="popup-text">    
-            <table style="margin-right: 10%; margin-left: 10%">
-				<tbody>
-				    <tr>
-					    <th scope="row">
-                            <div class="img1">
-                                <img src="images/lido.jpg">
-                            </div>
-					    </th>
-					    <td>
-                            <h1>you booked this destination for <?php echo $people?> people.
-                            <br>The tour will be held on <?php echo $date ?></h1><br>
-                            <h2>> you can use all Alilaguna boat transfers for 72 hours from the time you exchange your voucher.
-                            <br>> Get around Venice using any of the three lines to explore the city at your own pace.
-                            <br>> including the line that connects Venice Marco Polo Airport and the Venice cruise port to the city center, Lido and Murano Island.
-                            </h2>
-					    </td>
-				    </tr>
-                </tbody>
-            </table>
-        </div>
-        <a href="#c6" class="btnn popup-btn">CLOSE</a>
-    </div>
-</div>
-
-<div class="popup" id="treasure">
-    <div class="popup-content">
-    <div class="popup-header">
-            <p style="font-size: 2rem;"><b>Doge's Palace & Basilica Treasure Hunt</b></p>
-        </div>
-        <div class="popup-text">    
-            <table style="margin-right: 10%; margin-left: 10%">
-				<tbody>
-				    <tr>
-					    <th scope="row">
-                            <div class="img1">
-                                <img src="images/treasure-hunt.png">
-                            </div>
-					    </th>
-					    <td>
-                            <h1>you booked this destination for <?php echo $people?> people.
-                            <br>The tour will be held on <?php echo $date ?></h1><br>
-                            <h2>> This tour is designed especially for children to engage with the history and art of Venice.
-                            <br>> Ideal for children aged between 5-12 years.
-                            <br>> After skipping the queques I will lead your family through the Basilica and Doge's Palace, with clues and riddles
-                            </h2>
-                            <br>
-                            <h2>Duration 2 hours.</h2>
-					    </td>
-				  </tr>
-                </tbody>
-            </table>
-        </div>
-        <a href="#c7" class="btnn popup-btn">CLOSE</a>
-    </div>
-</div>
-
-<div class="popup" id="cooking">
-    <div class="popup-content">
-    <div class="popup-header">
-            <p style="font-size: 2rem;"><b>Cooking Class & Lunch of typical Venetian Recipes</b></p>
-        </div>
-        <div class="popup-text">    
-            <table style="margin-right: 10%; margin-left: 10%">
-				<tbody>
-				    <tr>
-					    <th scope="row">
-                            <div class="img1">
-                                <img src="images/cooking.jpg">
-                            </div>
-					    </th>
-					    <td>
-                            <h1>you booked this destination for <?php echo $people?> people.
-                            <br>The tour will be held on <?php echo $date ?></h1><br>
-                            <h2>> The cooking classes are leaded by a Venetian chef in his home.
-                            <br>>  Fish and Meat menu available. Welcome drink. Pilchards in sweet and sour, scallops au gratin in Venetian style and so on
-                            </h2>
-                            <br>
-                            <h2>
-                                <br>Duration: 4 hours.<br>
-                                (from 10.00 am to 2.00 pm)<br>
-                                From 1 to 6 people.
-                            </h2>
-					    </td>
-				  </tr>
-                </tbody>
-            </table>
-        </div>
-        <a href="#c8" class="btnn popup-btn">CLOSE</a>
-    </div>
-</div>
-        
+    
     <?php
       }
     } else {
@@ -438,7 +481,8 @@ session_start();
     ?>
       <br><br><br><br><br><br>
       <div class="heading">
-        <span>Go get your vacation!</span>
+        <span>Go get your vacation!</span><br>
+        <a href="form.php" class="btn3">book now</a>
       </div>
     <?php
     }
