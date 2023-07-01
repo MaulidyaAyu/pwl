@@ -34,8 +34,9 @@ if (isset($_GET['book_code']) && isset($_GET['total_price'])) {
 
 
     // Hapus data booking dari tabel 'booking'
-    $delete_stmt = $database->prepare("DELETE FROM booking WHERE username = :username ");
+    $delete_stmt = $database->prepare("DELETE FROM booking WHERE username = :username AND book_code = :book_code");
     $delete_stmt->bindParam(':username', $_SESSION['username']);
+    $delete_stmt->bindParam(':book_code',$book_code);
     $delete_stmt->execute();
 
     // Hapus data dari session keranjang
@@ -119,7 +120,7 @@ if (isset($_GET['book_code']) && isset($_GET['total_price'])) {
             <br>tour start at: <?php echo $order['date']; ?>
             <br>tour Destination: <?php echo $order['judul']; ?>
             <br>amount of People: <?php echo $order['people'] ; ?>
-            <br>price: IDR <?php echo number_format($order['harga'], 2)?>
+            <br>price: IDR <?php echo number_format($order['harga'], 2)?>/pax
             <br>Total Price: IDR <?php echo $total_price; ?></p><br><br>
             <a href="order.php" class="btn1">DONE</a>
     </div>
@@ -134,3 +135,4 @@ if (isset($_GET['book_code']) && isset($_GET['total_price'])) {
     exit;
 }
 ?>
+        
